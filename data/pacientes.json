@@ -42,5 +42,14 @@
         "cpf_ou_rg": "60611114558",
         "genero": "Feminino",
         "id": 5
+    },
+    {
+        "nome": "Allander",
+        "data_nascimento": "07/12/1998",
+        "telefone": "85998022572",
+        "email": "allander@gmail.com",
+        "cpf/rg": "23611885674",
+        "genero": "Feminino",
+        "id": 6
     }
 ]

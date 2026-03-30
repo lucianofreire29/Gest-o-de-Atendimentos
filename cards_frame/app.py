@@ -1,7 +1,7 @@
 import customtkinter as ctk
 from tkinter import messagebox
 from constantes.cores import *
-from utils.funçoes import criar_botao_menu,abrir_cadastro_paciente ,abrir_treeview
+from utils.funçoes import criar_botao_menu,abrir_cadastro_paciente ,abrir_treeview,abrir_dashboard
 from PIL import Image
 from cards_frame.card_form import CardForm
 from cards_frame.cadastrar_paciente import CadastrarPaciente
@@ -37,10 +37,10 @@ class App(ctk.CTk):
         self.logo_label.pack()
 
 
-        criar_botao_menu(self.frame_menu,"Dashboard")
+        criar_botao_menu(self.frame_menu,"Dashboard",lambda:abrir_dashboard(self))
         criar_botao_menu(self.frame_menu,"Pacientes",lambda:abrir_treeview(self))
         criar_botao_menu(self.frame_menu,"Atendimentos")
-        criar_botao_menu(self.frame_menu,"Novo Paciente",lambda: abrir_cadastro_paciente(self))
+        criar_botao_menu(self.frame_menu,"Novo Paciente",lambda:abrir_cadastro_paciente(self))
         criar_botao_menu(self.frame_menu,"Novo Atendimento")
 
 
@@ -48,5 +48,6 @@ class App(ctk.CTk):
         self.frame_form = ctk.CTkFrame(self.frame_main,fg_color="white")
         self.frame_form.pack(side="right", fill="both", expand=True)
 
-        self.card = CardForm(self.frame_form)
-        self.card.pack(padx=20, pady=20, fill="both", expand=True)
+        self.tela_atual = CardForm(self.frame_form)
+        self.tela_atual.pack(padx=20, pady=20, fill="both", expand=True)
+        self.tela_atual = None

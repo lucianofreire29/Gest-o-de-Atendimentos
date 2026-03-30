@@ -20,21 +20,23 @@ def criar_botao_menu(parent, texto, comando=None):
     return btn
 
 
+def abrir_dashboard(app):
+    from cards_frame.card_form import CardForm
+    trocar_tela(app, CardForm)
 
-# limpar frame
-def limpar_frame(self):
-    for widget in self.frame_form.winfo_children():
-        widget.destroy()
-
-
-
-# abrir frame
-def abrir_cadastro_paciente(self):
+def abrir_cadastro_paciente(app):
     from cards_frame.cadastrar_paciente import CadastrarPaciente
-    limpar_frame(self)
+    trocar_tela(app, CadastrarPaciente)
 
-    tela = CadastrarPaciente(self.frame_form)
-    tela.pack(fill="both", expand=True, padx=20, pady=20)
+def abrir_treeview(app):
+    from cards_frame.treeview_paciente import TreeviewPaciente
+    trocar_tela(app, TreeviewPaciente)
+
+
+
+
+# abrir frame cadastro paciente
+
 
 # função dos textos cadastrar paciente
 def titulo(parent,texto):
@@ -189,17 +191,6 @@ def limpar_campos(self):
     self.entry_email.delete(0, "end")
     self.entry_cpf.delete(0, "end")
     self.genero.set("")
-
-
-
-
-
-def abrir_treeview(self):
-    from cards_frame.treeview_paciente import TreeviewPaciente
-    limpar_frame(self)
-
-    tela = TreeviewPaciente(self.frame_form)
-    tela.pack(fill="both", expand=True)
 
 
 
@@ -494,3 +485,13 @@ def renderizar_detalhe(paciente, treeview_frame, treeview):
         text="Registrar Atendimento",
         command=lambda: registrar_atendimento(paciente)
     ).pack(pady=5)
+
+
+def trocar_tela(app, TelaClasse):
+    
+    for widget in app.frame_form.winfo_children():
+        widget.destroy()
+
+    # cria nova tela
+    tela = TelaClasse(app.frame_form)
+    tela.pack(fill="both", expand=True, padx=20, pady=20)
