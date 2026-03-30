@@ -1,0 +1,46 @@
+[
+    {
+        "nome": "gabriela",
+        "data_nascimento": "31/07/1995",
+        "telefone": "95959595959",
+        "email": "asdasd@asdasdsa",
+        "genero": "Feminino",
+        "id": 1,
+        "cpf": "6061111352",
+        "cpf/rg": "5555555555"
+    },
+    {
+        "nome": "Luciano Alves Freire Neto",
+        "data_nascimento": "31/07/1995",
+        "telefone": "85998014915",
+        "email": "luciano@gmail.com",
+        "genero": "Masculino",
+        "id": 2,
+        "cpf/rg": "23611685372"
+    },
+    {
+        "nome": "pedro henrique",
+        "data_nascimento": "05/02/1995",
+        "telefone": "85998042572",
+        "email": "pedro@gmail.com",
+        "genero": "Masculino",
+        "id": 3
+    },
+    {
+        "nome": "Nina Beatriz",
+        "data_nascimento": "28/08/2002",
+        "telefone": "85998014915",
+        "email": "nina@gmail.com",
+        "genero": "Feminino",
+        "id": 4
+    },
+    {
+        "nome": "beatriz",
+        "data_nascimento": "12/02/1998",
+        "telefone": "9899213936",
+        "email": "beatriz@gmail.com",
+        "cpf_ou_rg": "60611114558",
+        "genero": "Feminino",
+        "id": 5
+    }
+]
