@@ -5,13 +5,29 @@ from cards_frame.card_form import CardForm
 from tkinter import ttk
 import json
 import os
-from utils.funçoes import carregar_pacientes, abrir_detalhes_paciente
+from utils.funçoes import carregar_pacientes, abrir_detalhes_paciente,pesquisar_pacientes
 
 
 class TreeviewPaciente(ctk.CTkFrame):
     def __init__(self, parent):
         super().__init__(parent, fg_color="white")
         self.pack(fill="both", expand=True)
+
+        
+        self.entry_pesquisa = ctk.CTkEntry(
+            self,
+            placeholder_text="Pesquisar por nome ou telefone..."
+        )
+        self.entry_pesquisa.pack(padx=10, pady=5, fill="x")
+
+        # evento de digitação
+        self.entry_pesquisa.bind(
+            "<KeyRelease>",
+            lambda event: pesquisar_pacientes(
+                self.treeview_paciente,
+                self.entry_pesquisa.get()
+            )
+        )
 
         # 🔥 FRAME NORMAL (substitui o scroll)
         frame_tabela = ctk.CTkFrame(self, fg_color="white")

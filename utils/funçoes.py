@@ -495,3 +495,44 @@ def trocar_tela(app, TelaClasse):
     # cria nova tela
     tela = TelaClasse(app.frame_form)
     tela.pack(fill="both", expand=True, padx=20, pady=20)
+
+
+
+# função de pesquisar no treeview
+def pesquisar_pacientes(treeview, termo):
+    import json
+    import os
+
+    caminho = r"D:\Users\Aluno\Desktop\gestão saúde\data\pacientes.json"
+
+    if not os.path.exists(caminho):
+        return
+
+    if termo == "":
+        carregar_pacientes(treeview)
+        return
+
+    with open(caminho, "r", encoding="utf-8") as arquivo:
+        pacientes = json.load(arquivo)
+
+    # limpa a tabela
+    for item in treeview.get_children():
+        treeview.delete(item)
+
+    termo = termo.lower()
+
+    # filtra pacientes
+    for paciente in pacientes:
+        nome = paciente.get("nome", "").lower()
+        telefone = paciente.get("telefone", "")
+
+        if termo in nome or termo in telefone:
+            treeview.insert("", "end", values=(
+                paciente.get("id"),
+                paciente.get("nome"),
+                paciente.get("data_nascimento"),
+                paciente.get("email"),
+                paciente.get("telefone"),
+                paciente.get("cpf/rg"),
+                paciente.get("genero")
+            ))
