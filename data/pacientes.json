@@ -7,16 +7,7 @@
         "genero": "Feminino",
         "id": 1,
         "cpf": "6061111352",
-        "cpf/rg": "5555555555"
-    },
-    {
-        "nome": "Luciano Alves Freire Neto",
-        "data_nascimento": "31/07/1995",
-        "telefone": "85998014915",
-        "email": "luciano@gmail.com",
-        "genero": "Masculino",
-        "id": 2,
-        "cpf/rg": "23611685372"
+        "cpf/rg": "5555555556"
     },
     {
         "nome": "pedro henrique",
@@ -51,5 +42,14 @@
         "cpf/rg": "23611885674",
         "genero": "Feminino",
         "id": 6
+    },
+    {
+        "nome": "Allander m",
+        "data_nascimento": "31/05/1998",
+        "telefone": "85999999999",
+        "email": "allander@gmail.com",
+        "cpf/rg": "25625414782",
+        "genero": "Masculino",
+        "id": 7
     }
 ]

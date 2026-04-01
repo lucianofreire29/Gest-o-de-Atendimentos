@@ -17,7 +17,7 @@ class App(ctk.CTk):
         self.resizable(False, False)
 
         # ===== TOPO =====
-        self.frame_topo = ctk.CTkFrame(self, fg_color=AZUL_MENU, height=40)
+        self.frame_topo = ctk.CTkFrame(self, fg_color=AZUL_MENU, height=40,corner_radius=0)
         self.frame_topo.pack(fill="x", side="top")
 
         # ===== CONTAINER PRINCIPAL =====
@@ -25,7 +25,7 @@ class App(ctk.CTk):
         self.frame_main.pack(fill="both", expand=True)
 
         # ===== MENU LATERAL =====
-        self.frame_menu = ctk.CTkFrame(self.frame_main, fg_color=CINZA_MENU_LATERAL, width=200)
+        self.frame_menu = ctk.CTkFrame(self.frame_main, fg_color=CINZA_MENU_LATERAL, width=200,corner_radius=0)
         self.frame_menu.pack(side="left", fill="y")
 
         self.logo_img = ctk.CTkImage(light_image=Image.open("./assets/caresync.png"),
