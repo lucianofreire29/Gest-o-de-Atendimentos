@@ -9,10 +9,11 @@ from utils.funçoes import carregar_pacientes, abrir_detalhes_paciente,pesquisar
 
 
 class TreeviewPaciente(ctk.CTkFrame):
-    def __init__(self, parent):
+    def __init__(self, parent,app):
         super().__init__(parent, fg_color="white")
+        self.app = app
         self.pack(fill="both", expand=True)
-
+        
         
         self.entry_pesquisa = ctk.CTkEntry(
             self,
@@ -29,11 +30,11 @@ class TreeviewPaciente(ctk.CTkFrame):
             )
         )
 
-        # 🔥 FRAME NORMAL (substitui o scroll)
+        #  FRAME NORMAL (substitui o scroll)
         frame_tabela = ctk.CTkFrame(self, fg_color="white")
         frame_tabela.pack(fill="both", expand=True, padx=10, pady=10)
 
-        # 🔥 controle de expansão
+        #  controle de expansão
         frame_tabela.grid_rowconfigure(0, weight=1)
         frame_tabela.grid_columnconfigure(0, weight=1)
 
@@ -70,8 +71,8 @@ class TreeviewPaciente(ctk.CTkFrame):
         # Evento de duplo clique
         self.treeview_paciente.bind(
             "<Double-1>",
-            lambda event: abrir_detalhes_paciente(self.treeview_paciente, self, event)
-        )
+            lambda event: abrir_detalhes_paciente(self.treeview_paciente, self, event, self.app))
+
 
         # Carrega os pacientes
         carregar_pacientes(self.treeview_paciente)

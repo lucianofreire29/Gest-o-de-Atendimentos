@@ -8,7 +8,7 @@ from constantes.cores import *
 
 
 class CardForm (ctk.CTkFrame):
-    def __init__(self, parent):
+    def __init__(self, parent,app):
         super().__init__(parent,border_width=2,border_color=AZUL_FONTE_TEXTO,fg_color="white")
 
 

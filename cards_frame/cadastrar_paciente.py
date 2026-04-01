@@ -5,8 +5,8 @@ from utils.funçoes import titulo, entry_cadastro,validar_data_entry,validar_tel
 
 
 class CadastrarPaciente(CardForm):
-    def __init__(self, parent):
-        super().__init__(parent)
+    def __init__(self, parent,app):
+        super().__init__(parent,app)
 
 
 

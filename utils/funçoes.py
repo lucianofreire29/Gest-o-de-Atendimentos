@@ -4,6 +4,8 @@ from datetime import datetime
 import json
 import os
 from CTkMessagebox import CTkMessagebox
+from cards_frame.card_form import CardForm
+
 
 def criar_botao_menu(parent, texto, comando=None):
     btn = ctk.CTkButton(
@@ -34,11 +36,6 @@ def abrir_treeview(app):
 
 
 
-
-
-
-
-# abrir frame cadastro paciente
 
 
 # função dos textos cadastrar paciente
@@ -214,7 +211,7 @@ def carregar_pacientes(treeview):
     for item in treeview.get_children():
         treeview.delete(item)
 
-    # insere
+    
     for paciente in pacientes:
         treeview.insert("", "end", values=(
             paciente.get("id"),
@@ -228,7 +225,7 @@ def carregar_pacientes(treeview):
 
 
 
-def abrir_detalhes_paciente(treeview, treeview_frame, event):
+def abrir_detalhes_paciente(treeview, treeview_frame, event, app):
 
     item_id = treeview.identify_row(event.y)
     if not item_id:
@@ -237,12 +234,12 @@ def abrir_detalhes_paciente(treeview, treeview_frame, event):
     item = treeview.item(item_id)
     paciente = item["values"]
 
-    renderizar_detalhe(paciente, treeview_frame, treeview)
+    renderizar_detalhe(paciente, treeview_frame, treeview, app)
 
 
 
 
-def excluir_paciente(paciente, treeview):
+def excluir_paciente(paciente, app):
     caminho =  r"D:\Users\Aluno\Desktop\gestão saúde\data\pacientes.json"
     with open(caminho, "r", encoding="utf-8") as f:
         pacientes = json.load(f)
@@ -252,9 +249,9 @@ def excluir_paciente(paciente, treeview):
     with open(caminho, "w", encoding="utf-8") as f:
         json.dump(pacientes, f, indent=4)
 
-    carregar_pacientes(treeview)
-
     CTkMessagebox(title="Sucesso", message=f"Paciente {paciente[1]} excluído!", icon="check", option_1="OK")
+
+    abrir_treeview(app)
 
 def editar_paciente(paciente, treeview_frame):
     CTkMessagebox(title="Editar", message=f"Editar paciente {paciente[1]}", icon="check", option_1="OK")
@@ -351,7 +348,7 @@ def salvar_edicao(paciente_id, entry_dict, treeview):
 
 
 
-def editar_sobre_detalhe(paciente, detalhe_frame, treeview):
+def editar_sobre_detalhe(paciente, detalhe_frame, treeview,app):
     # Cria frame de edição sobre o detalhe_frame
     editar_frame = ctk.CTkFrame(detalhe_frame, fg_color="white")
     editar_frame.place(relx=0.5, rely=0.5, anchor="center")  # centraliza sobre o detalhe_frame
@@ -377,12 +374,12 @@ def editar_sobre_detalhe(paciente, detalhe_frame, treeview):
     ctk.CTkButton(
         editar_frame,
         text="Salvar Alterações",
-        command=lambda: salvar_edicao_sobre(paciente[0], entry_dict, treeview, editar_frame)
+        command=lambda: salvar_edicao_sobre(paciente[0], entry_dict, treeview, editar_frame, app)
     ).pack(pady=10)
 
 
 
-def salvar_edicao_sobre(paciente_id, entry_dict, treeview, editar_frame):
+def salvar_edicao_sobre(paciente_id, entry_dict, treeview, editar_frame,app):
     caminho =  r"D:\Users\Aluno\Desktop\gestão saúde\data\pacientes.json"
 
     nome = entry_dict["nome"].get()
@@ -439,7 +436,7 @@ def salvar_edicao_sobre(paciente_id, entry_dict, treeview, editar_frame):
 
     # 5. atualizar detalhe (CORRETO)
     treeview_frame = editar_frame.master
-    renderizar_detalhe(paciente_atualizado, treeview_frame, treeview)
+    renderizar_detalhe(paciente_atualizado, treeview_frame, treeview,app)
 
     # 6. atualizar tabela
     if treeview and treeview.winfo_exists():
@@ -453,7 +450,7 @@ def salvar_edicao_sobre(paciente_id, entry_dict, treeview, editar_frame):
 
 
 
-def renderizar_detalhe(paciente, treeview_frame, treeview):
+def renderizar_detalhe(paciente, treeview_frame, treeview, app):
     # limpa o frame
     for widget in treeview_frame.winfo_children():
         widget.destroy()
@@ -474,13 +471,13 @@ def renderizar_detalhe(paciente, treeview_frame, treeview):
     ctk.CTkButton(
         detalhe_frame,
         text="Editar",
-        command=lambda: editar_sobre_detalhe(paciente, detalhe_frame, treeview)
+        command=lambda: editar_sobre_detalhe(paciente, detalhe_frame, treeview,app)
     ).pack(pady=5)
 
     ctk.CTkButton(
         detalhe_frame,
         text="Excluir",
-        command=lambda: excluir_paciente(paciente, treeview)
+        command=lambda: excluir_paciente(paciente, app)
     ).pack(pady=5)
 
     ctk.CTkButton(
@@ -491,12 +488,10 @@ def renderizar_detalhe(paciente, treeview_frame, treeview):
 
 
 def trocar_tela(app, TelaClasse):
-    
     for widget in app.frame_form.winfo_children():
         widget.destroy()
 
-    # cria nova tela
-    tela = TelaClasse(app.frame_form)
+    tela = TelaClasse(app.frame_form, app)
     tela.pack(fill="both", expand=True, padx=20, pady=20)
 
 

@@ -48,6 +48,6 @@ class App(ctk.CTk):
         self.frame_form = ctk.CTkFrame(self.frame_main,fg_color="white")
         self.frame_form.pack(side="right", fill="both", expand=True)
 
-        self.tela_atual = CardForm(self.frame_form)
+        self.tela_atual = CardForm(self.frame_form,self)
         self.tela_atual.pack(padx=20, pady=20, fill="both", expand=True)
         self.tela_atual = None
