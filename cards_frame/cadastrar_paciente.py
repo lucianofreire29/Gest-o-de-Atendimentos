@@ -14,21 +14,60 @@ class CadastrarPaciente(CardForm):
         self.label_titulo = ctk.CTkLabel(self.scroll,text="Cadastro de Pacientes",text_color=AZUL_FONTE_TEXTO,font=("",16))
         self.label_titulo.pack(pady=10,anchor="center")
 
+        frame_nome = ctk.CTkFrame(self.scroll, fg_color="transparent")
+        frame_nome.pack(fill="x", padx=20, pady=5)
 
-        self.nome = titulo(self.scroll,"nome completo")
-        self.entry_nome= entry_cadastro(self.scroll,"Digite o nome")
+        self.nome = titulo(frame_nome, "Nome completo")
+        self.nome.pack(anchor="w")
 
-        self.data = titulo(self.scroll,"data de nascimento")
-        self.entry_data= entry_cadastro(self.scroll,"DD/MM/AAAA" ,validar_func=validar_data_entry)
+        self.entry_nome = entry_cadastro(frame_nome, "Digite o nome")
+        self.entry_nome.pack(fill="x")
 
-        self.telefone = titulo(self.scroll,"telefone")
-        self.entry_telefone= entry_cadastro(self.scroll,"Digite o seu telefone",validar_func=validar_telefone)
+        frame_linha = ctk.CTkFrame(self.scroll, fg_color="transparent")
+        frame_linha.pack(fill="x", padx=20, pady=5)
 
-        self.email = titulo(self.scroll,"E-mail")
-        self.entry_email= entry_cadastro(self.scroll,"Digite o seu e-mail")
+        # DATA
+        frame_data = ctk.CTkFrame(frame_linha, fg_color="transparent")
+        frame_data.pack(side="left", expand=True, fill="x", padx=5)
 
-        self.cpf = titulo(self.scroll,"CPF OU RG")
-        self.entry_cpf= entry_cadastro(self.scroll,"Digite seu CPF ou RG")
+        self.data = titulo(frame_data, "Data de nascimento")
+        self.data.pack(anchor="w")
+
+        self.entry_data = entry_cadastro(frame_data, "DD/MM/AAAA", validar_func=validar_data_entry)
+        self.entry_data.pack(fill="x")
+
+        # CPF
+        frame_cpf = ctk.CTkFrame(frame_linha, fg_color="transparent")
+        frame_cpf.pack(side="left", expand=True, fill="x", padx=5)
+
+        self.cpf = titulo(frame_cpf, "CPF ou RG")
+        self.cpf.pack(anchor="w")
+
+        self.entry_cpf = entry_cadastro(frame_cpf, "Digite seu CPF ou RG")
+        self.entry_cpf.pack(fill="x")
+
+        frame_contato = ctk.CTkFrame(self.scroll, fg_color="transparent")
+        frame_contato.pack(fill="x", padx=20, pady=5)
+
+        # TELEFONE
+        frame_tel = ctk.CTkFrame(frame_contato, fg_color="transparent")
+        frame_tel.pack(side="left", expand=True, fill="x", padx=5)
+
+        self.telefone = titulo(frame_tel, "Telefone")
+        self.telefone.pack(anchor="w")
+
+        self.entry_telefone = entry_cadastro(frame_tel, "Digite o telefone", validar_func=validar_telefone)
+        self.entry_telefone.pack(fill="x")
+
+        # EMAIL
+        frame_email = ctk.CTkFrame(frame_contato, fg_color="transparent")
+        frame_email.pack(side="left", expand=True, fill="x", padx=5)
+
+        self.email = titulo(frame_email, "E-mail")
+        self.email.pack(anchor="w")
+
+        self.entry_email = entry_cadastro(frame_email, "Digite o e-mail")
+        self.entry_email.pack(fill="x")
 
 
 

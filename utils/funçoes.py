@@ -51,10 +51,8 @@ def abrir_treeview(app):
 
 
 # função dos textos cadastrar paciente
-def titulo(parent,texto):
-    label_cadastro = ctk.CTkLabel(parent,text=texto,text_color=AZUL_FONTE_TEXTO)
-    label_cadastro.pack(pady=5,anchor="center")
-    return label_cadastro
+def titulo(parent, texto):
+    return ctk.CTkLabel(parent, text=texto, text_color=AZUL_FONTE_TEXTO)
 
 
 
@@ -72,7 +70,6 @@ def entry_cadastro(parent, placeholder, validar_func=None):
         vcmd = (parent.register(validar_func), "%P")
         entry.configure(validate="key", validatecommand=vcmd)
 
-    entry.pack(pady=5, anchor="center")
     return entry
 
 
@@ -282,26 +279,99 @@ def editar_paciente(paciente, treeview_frame, treeview_paciente):
     editar_frame = ctk.CTkFrame(treeview_frame, fg_color="white")
     editar_frame.pack(fill="both", expand=True, padx=20, pady=20)
 
-    # campos
-    labels = ["Nome", "Data de Nascimento", "Email", "Telefone", "CPF/RG", "Genero"]
     entry_dict = {}
 
-    for i, label in enumerate(labels):
-        ctk.CTkLabel(editar_frame, text=label, text_color=AZUL_FONTE_TEXTO, anchor="center", font=("",16)).pack(pady=5)
-        
-        if label == "Genero":
-            combo = ctk.CTkComboBox(
-                editar_frame,
-                values=["Masculino", "Feminino", "Outro"]
-            )
-            combo.pack(pady=5, anchor="center")
-            combo.set(paciente[i+1])  
-            entry_dict["genero"] = combo
-        else:
-            entry = ctk.CTkEntry(editar_frame, border_color="black", width=200)
-            entry.pack(pady=5, anchor="center")
-            entry.insert(0, paciente[i+1])
-            entry_dict[label.lower().replace(" ", "_")] = entry  
+    frame_nome = ctk.CTkFrame(editar_frame, fg_color="transparent")
+    frame_nome.pack(fill="x", padx=20, pady=5)
+
+    label_nome = ctk.CTkLabel(frame_nome, text="Nome", text_color=AZUL_FONTE_TEXTO)
+    label_nome.pack(anchor="w")
+
+    entry_nome = ctk.CTkEntry(frame_nome, border_color="black")
+    entry_nome.pack(fill="x")
+    entry_nome.insert(0, paciente[1])
+
+    entry_dict["nome"] = entry_nome
+
+    frame_linha = ctk.CTkFrame(editar_frame, fg_color="transparent")
+    frame_linha.pack(fill="x", padx=20, pady=5)
+
+    frame_linha.grid_columnconfigure(0, weight=1)
+    frame_linha.grid_columnconfigure(1, weight=1)
+
+    # DATA
+    frame_data = ctk.CTkFrame(frame_linha, fg_color="transparent")
+    frame_data.grid(row=0, column=0, sticky="ew", padx=5)
+
+    label_data = ctk.CTkLabel(frame_data, text="Data de Nascimento", text_color=AZUL_FONTE_TEXTO)
+    label_data.pack(anchor="w")
+
+    entry_data = ctk.CTkEntry(frame_data, border_color="black")
+    entry_data.pack(fill="x")
+    entry_data.insert(0, paciente[2])
+
+    entry_dict["data_de_nascimento"] = entry_data
+
+
+    # CPF
+    frame_cpf = ctk.CTkFrame(frame_linha, fg_color="transparent")
+    frame_cpf.grid(row=0, column=1, sticky="ew", padx=5)
+
+    label_cpf = ctk.CTkLabel(frame_cpf, text="CPF/RG", text_color=AZUL_FONTE_TEXTO)
+    label_cpf.pack(anchor="w")
+
+    entry_cpf = ctk.CTkEntry(frame_cpf, border_color="black")
+    entry_cpf.pack(fill="x")
+    entry_cpf.insert(0, paciente[5])
+
+    entry_dict["cpf/rg"] = entry_cpf
+
+
+    frame_contato = ctk.CTkFrame(editar_frame, fg_color="transparent")
+    frame_contato.pack(fill="x", padx=20, pady=5)
+
+    # TELEFONE
+    frame_tel = ctk.CTkFrame(frame_contato, fg_color="transparent")
+    frame_tel.grid(row=0, column=0, sticky="ew", padx=5)
+
+    label_tel = ctk.CTkLabel(frame_tel, text="Telefone", text_color=AZUL_FONTE_TEXTO)
+    label_tel.pack(anchor="w")
+
+    entry_tel = ctk.CTkEntry(frame_tel, border_color="black")
+    entry_tel.pack(fill="x")
+    entry_tel.insert(0, paciente[4])
+
+    entry_dict["telefone"] = entry_tel
+
+    frame_contato.grid_columnconfigure(0, weight=1)
+    frame_contato.grid_columnconfigure(1, weight=1)
+
+    # EMAIL
+    frame_email = ctk.CTkFrame(frame_contato, fg_color="transparent")
+    frame_email.grid(row=0, column=1, sticky="ew", padx=5)
+
+    label_email = ctk.CTkLabel(frame_email, text="Email", text_color=AZUL_FONTE_TEXTO)
+    label_email.pack(anchor="w")
+
+    entry_email = ctk.CTkEntry(frame_email, border_color="black")
+    entry_email.pack(fill="x")
+    entry_email.insert(0, paciente[3])
+
+    entry_dict["email"] = entry_email
+
+    frame_genero = ctk.CTkFrame(editar_frame, fg_color="transparent")
+    frame_genero.pack(fill="x", padx=20, pady=5)
+
+    label_genero = ctk.CTkLabel(frame_genero, text="Gênero", text_color=AZUL_FONTE_TEXTO)
+    label_genero.pack(anchor="w")
+
+    combo = ctk.CTkComboBox(frame_genero, values=["Masculino", "Feminino", "Outro"])
+    combo.pack(fill="x")
+    combo.set(paciente[6])
+
+    entry_dict["genero"] = combo
+
+
 
     # botão salvar
     ctk.CTkButton(
@@ -367,21 +437,93 @@ def editar_sobre_detalhe(paciente, detalhe_frame, treeview,app):
     editar_frame.place(relx=0.5, rely=0.5, anchor="center")  # centraliza sobre o detalhe_frame
     editar_frame.configure(width=400, height=400)  # tamanho fixo
 
-    labels = ["Nome", "Data de Nascimento", "Email", "Telefone", "CPF/RG", "Genero"]
     entry_dict = {}
 
-    for i, label in enumerate(labels):
-        ctk.CTkLabel(editar_frame, text=label, text_color=AZUL_FONTE_TEXTO, font=("", 16)).pack(pady=5)
-        if label == "Genero":
-            combo = ctk.CTkComboBox(editar_frame, values=["Masculino", "Feminino", "Outro"])
-            combo.pack(pady=5)
-            combo.set(paciente[i+1])
-            entry_dict["genero"] = combo
-        else:
-            entry = ctk.CTkEntry(editar_frame, border_color="black", width=200)
-            entry.pack(pady=5)
-            entry.insert(0, paciente[i+1])
-            entry_dict[label.lower().replace(" ", "_")] = entry
+    # ===== NOME =====
+    frame_nome = ctk.CTkFrame(editar_frame, fg_color="transparent")
+    frame_nome.pack(fill="x", padx=20, pady=5)
+
+    ctk.CTkLabel(frame_nome, text="Nome", text_color=AZUL_FONTE_TEXTO).pack(anchor="w")
+
+    entry_nome = ctk.CTkEntry(frame_nome)
+    entry_nome.pack(fill="x")
+    entry_nome.insert(0, paciente[1])
+
+    entry_dict["nome"] = entry_nome
+
+
+    # ===== LINHA: DATA + CPF =====
+    frame_linha = ctk.CTkFrame(editar_frame, fg_color="transparent")
+    frame_linha.pack(fill="x", padx=20, pady=5)
+
+    # DATA
+    frame_data = ctk.CTkFrame(frame_linha, fg_color="transparent")
+    frame_data.pack(side="left", expand=True, fill="x", padx=5)
+
+    ctk.CTkLabel(frame_data, text="Data de Nascimento", text_color=AZUL_FONTE_TEXTO).pack(anchor="w")
+
+    entry_data = ctk.CTkEntry(frame_data)
+    entry_data.pack(fill="x")
+    entry_data.insert(0, paciente[2])
+
+    entry_dict["data_de_nascimento"] = entry_data
+
+
+    # CPF
+    frame_cpf = ctk.CTkFrame(frame_linha, fg_color="transparent")
+    frame_cpf.pack(side="left", expand=True, fill="x", padx=5)
+
+    ctk.CTkLabel(frame_cpf, text="CPF/RG", text_color=AZUL_FONTE_TEXTO).pack(anchor="w")
+
+    entry_cpf = ctk.CTkEntry(frame_cpf)
+    entry_cpf.pack(fill="x")
+    entry_cpf.insert(0, paciente[5])
+
+    entry_dict["cpf/rg"] = entry_cpf
+
+
+    # ===== CONTATO =====
+    frame_contato = ctk.CTkFrame(editar_frame, fg_color="transparent")
+    frame_contato.pack(fill="x", padx=20, pady=5)
+
+    # TELEFONE
+    frame_tel = ctk.CTkFrame(frame_contato, fg_color="transparent")
+    frame_tel.pack(side="left", expand=True, fill="x", padx=5)
+
+    ctk.CTkLabel(frame_tel, text="Telefone", text_color=AZUL_FONTE_TEXTO).pack(anchor="w")
+
+    entry_tel = ctk.CTkEntry(frame_tel)
+    entry_tel.pack(fill="x")
+    entry_tel.insert(0, paciente[4])
+
+    entry_dict["telefone"] = entry_tel
+
+
+    # EMAIL
+    frame_email = ctk.CTkFrame(frame_contato, fg_color="transparent")
+    frame_email.pack(side="left", expand=True, fill="x", padx=5)
+
+    ctk.CTkLabel(frame_email, text="Email", text_color=AZUL_FONTE_TEXTO).pack(anchor="w")
+
+    entry_email = ctk.CTkEntry(frame_email)
+    entry_email.pack(fill="x")
+    entry_email.insert(0, paciente[3])
+
+    entry_dict["email"] = entry_email
+
+
+    # ===== GENERO =====
+    frame_genero = ctk.CTkFrame(editar_frame, fg_color="transparent")
+    frame_genero.pack(fill="x", padx=20, pady=5)
+
+    ctk.CTkLabel(frame_genero, text="Gênero", text_color=AZUL_FONTE_TEXTO).pack(anchor="w")
+
+    combo = ctk.CTkComboBox(frame_genero, values=["Masculino", "Feminino", "Outro"])
+    combo.pack(fill="x")
+    combo.set(paciente[6])
+
+    entry_dict["genero"] = combo
+
 
     # Botão salvar
     ctk.CTkButton(

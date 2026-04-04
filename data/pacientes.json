@@ -1,1 +1,11 @@
-[]
+[
+    {
+        "nome": "luciano",
+        "data_nascimento": "31/07/1995",
+        "telefone": "99999999991",
+        "email": "lucianofreiredigital29@gmail.com",
+        "cpf/rg": "60613315332",
+        "genero": "Masculino",
+        "id": 1
+    }
+]
