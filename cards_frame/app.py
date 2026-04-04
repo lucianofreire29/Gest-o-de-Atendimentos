@@ -5,7 +5,7 @@ from utils.funçoes import criar_botao_menu,abrir_cadastro_paciente ,abrir_treev
 from PIL import Image
 from cards_frame.card_form import CardForm
 from cards_frame.cadastrar_paciente import CadastrarPaciente
-
+import os
 
 class App(ctk.CTk):
     def __init__(self):
@@ -28,8 +28,12 @@ class App(ctk.CTk):
         self.frame_menu = ctk.CTkFrame(self.frame_main, fg_color=CINZA_MENU_LATERAL, width=200,corner_radius=0)
         self.frame_menu.pack(side="left", fill="y")
 
-        self.logo_img = ctk.CTkImage(light_image=Image.open("./assets/caresync.png"),
-        size=(160, 160))  # ajuste o tamanho
+        BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+        caminho_img = os.path.join(BASE_DIR, "assets", "caresync.png")
+
+        self.logo_img = ctk.CTkImage(
+            light_image=Image.open(caminho_img),
+            size=(160, 160))
 
 
 
@@ -51,3 +55,4 @@ class App(ctk.CTk):
         self.tela_atual = CardForm(self.frame_form,self)
         self.tela_atual.pack(padx=20, pady=20, fill="both", expand=True)
         self.tela_atual = None
+

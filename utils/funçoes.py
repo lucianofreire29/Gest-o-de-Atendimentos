@@ -7,6 +7,18 @@ from CTkMessagebox import CTkMessagebox
 from cards_frame.card_form import CardForm
 
 
+
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
+
+DATA_DIR = os.path.join(BASE_DIR, "data")
+
+
+CAMINHO_PACIENTES = os.path.join(DATA_DIR, "pacientes.json")
+
+
+
+
 def criar_botao_menu(parent, texto, comando=None):
     btn = ctk.CTkButton(
         parent,
@@ -109,9 +121,10 @@ def validar_telefone(texto):
     return True
 
 
+os.makedirs(DATA_DIR, exist_ok=True)
 # salvar pacientes
 def salvar_paciente(dados):
-    caminho =  r"D:\Users\Aluno\Desktop\gestão saúde\data\pacientes.json"
+    caminho = CAMINHO_PACIENTES
     # se o arquivo não existir, cria lista vazia
     if not os.path.exists(caminho):
         with open(caminho, "w") as f:
@@ -199,7 +212,7 @@ def carregar_pacientes(treeview):
     import json
     import os
 
-    caminho =  r"D:\Users\Aluno\Desktop\gestão saúde\data\pacientes.json"
+    caminho = CAMINHO_PACIENTES
 
     if not os.path.exists(caminho):
         return
@@ -240,7 +253,7 @@ def abrir_detalhes_paciente(treeview, treeview_frame, event, app):
 
 
 def excluir_paciente(paciente, app):
-    caminho =  r"D:\Users\Aluno\Desktop\gestão saúde\data\pacientes.json"
+    caminho = CAMINHO_PACIENTES
     with open(caminho, "r", encoding="utf-8") as f:
         pacientes = json.load(f)
 
@@ -298,7 +311,7 @@ def editar_paciente(paciente, treeview_frame, treeview_paciente):
     ).pack(pady=10)
 
 def salvar_edicao(paciente_id, entry_dict, treeview):
-    caminho =  r"D:\Users\Aluno\Desktop\gestão saúde\data\pacientes.json"
+    caminho = CAMINHO_PACIENTES
 
     nome = entry_dict["nome"].get()
     data_nascimento = entry_dict["data_de_nascimento"].get()
@@ -380,7 +393,7 @@ def editar_sobre_detalhe(paciente, detalhe_frame, treeview,app):
 
 
 def salvar_edicao_sobre(paciente_id, entry_dict, treeview, editar_frame,app):
-    caminho =  r"D:\Users\Aluno\Desktop\gestão saúde\data\pacientes.json"
+    caminho = CAMINHO_PACIENTES
 
     nome = entry_dict["nome"].get()
     data_nascimento = entry_dict["data_de_nascimento"].get()
@@ -501,7 +514,7 @@ def pesquisar_pacientes(treeview, termo):
     import json
     import os
 
-    caminho = r"D:\Users\Aluno\Desktop\gestão saúde\data\pacientes.json"
+    caminho = CAMINHO_PACIENTES
 
     if not os.path.exists(caminho):
         return
