@@ -435,7 +435,7 @@ def editar_sobre_detalhe(paciente, detalhe_frame, treeview,app):
     # Cria frame de edição sobre o detalhe_frame
     editar_frame = ctk.CTkFrame(detalhe_frame, fg_color="white")
     editar_frame.place(relx=0.5, rely=0.5, anchor="center")  # centraliza sobre o detalhe_frame
-    editar_frame.configure(width=400, height=400)  # tamanho fixo
+    editar_frame.configure(width=800, height=800)  # tamanho fixo
 
     entry_dict = {}
 
@@ -794,3 +794,15 @@ def obter_atendimentos_por_paciente(paciente_id):
 def abrir_historico(app):
     from cards_frame.historico_atendimentos import HistoricoAtendimentos
     trocar_tela(app, HistoricoAtendimentos)
+
+
+
+def fechar_app(app):
+
+    msg=CTkMessagebox(title="programa encerrado", message="programa encerrado com sucesso", icon="check")
+
+    resposta = msg.get()
+
+    if resposta:
+        app.destroy()
+

@@ -57,7 +57,7 @@ class Atendimento(ctk.CTkFrame):
             text_color=AZUL_FONTE_TEXTO
         ).pack()
 
-        self.text_obs = ctk.CTkTextbox(right, height=300)
+        self.text_obs = ctk.CTkTextbox(right, height=300,corner_radius=2,border_width=2)
         self.text_obs.pack(fill="both", expand=True, padx=10, pady=10)
 
         # BOTÃO

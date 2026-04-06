@@ -7,5 +7,14 @@
         "observacoes": "inicio de consulta",
         "status": "Em acompanhamento",
         "id": 1
+    },
+    {
+        "paciente_id": 2,
+        "paciente_nome": "pedro",
+        "data": "06/04/2026",
+        "tipo": "consulta",
+        "observacoes": "ffffff",
+        "status": "Em acompanhamento",
+        "id": 2
     }
 ]

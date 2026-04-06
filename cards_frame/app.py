@@ -1,7 +1,7 @@
 import customtkinter as ctk
 from tkinter import messagebox
 from constantes.cores import *
-from utils.funçoes import criar_botao_menu,abrir_cadastro_paciente ,abrir_treeview,abrir_dashboard,abrir_atendimento,abrir_historico
+from utils.funçoes import criar_botao_menu,abrir_cadastro_paciente ,abrir_treeview,abrir_dashboard,abrir_atendimento,abrir_historico,fechar_app
 from PIL import Image
 from cards_frame.card_form import CardForm
 from cards_frame.cadastrar_paciente import CadastrarPaciente
@@ -14,7 +14,7 @@ class App(ctk.CTk):
         self.geometry("920x600")
         ctk.set_appearance_mode("light")
         ctk.set_default_color_theme("blue")
-        self.resizable(False, False)
+        
 
         # ===== TOPO =====
         self.frame_topo = ctk.CTkFrame(self, fg_color=AZUL_MENU, height=40,corner_radius=0)
@@ -46,7 +46,7 @@ class App(ctk.CTk):
         criar_botao_menu(self.frame_menu, "Atendimentos", lambda: abrir_historico(self))
         criar_botao_menu(self.frame_menu,"Novo Paciente",lambda:abrir_cadastro_paciente(self))
         criar_botao_menu(self.frame_menu, "Novo Atendimento", lambda: abrir_atendimento(self))
-
+        criar_botao_menu(self.frame_menu, "Sair", lambda: fechar_app(self))
 
         # ===== CONTEÚDO (FORM) =====
         self.frame_form = ctk.CTkFrame(self.frame_main,fg_color="white")
