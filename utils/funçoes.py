@@ -689,3 +689,91 @@ def pesquisar_pacientes(treeview, termo):
                 paciente.get("cpf/rg"),
                 paciente.get("genero")
             ))
+
+
+CAMINHO_ATENDIMENTOS = os.path.join(DATA_DIR, "atendimentos.json")
+
+def obter_pacientes_dict():
+    if not os.path.exists(CAMINHO_PACIENTES):
+        return {}
+
+    with open(CAMINHO_PACIENTES, "r", encoding="utf-8") as f:
+        pacientes = json.load(f)
+
+    # { "João": 1, "Maria": 2 }
+    return {p["nome"]: p["id"] for p in pacientes}
+
+
+def filtrar_pacientes(termo):
+    pacientes = obter_pacientes_dict()
+
+    if termo == "":
+        return list(pacientes.keys())
+
+    termo = termo.lower()
+    return [nome for nome in pacientes if termo in nome.lower()]
+
+
+
+def salvar_atendimento(dados):
+    caminho = CAMINHO_ATENDIMENTOS
+
+    if not os.path.exists(caminho):
+        with open(caminho, "w") as f:
+            json.dump([], f)
+
+    with open(caminho, "r", encoding="utf-8") as f:
+        atendimentos = json.load(f)
+
+    if atendimentos:
+        novo_id = atendimentos[-1]["id"] + 1
+    else:
+        novo_id = 1
+
+    dados["id"] = novo_id
+
+    atendimentos.append(dados)
+
+    with open(caminho, "w", encoding="utf-8") as f:
+        json.dump(atendimentos, f, indent=4)
+
+
+def cadastrar_atendimento(self):
+    pacientes_dict = obter_pacientes_dict()
+
+    nome = self.combo_paciente.get()
+    paciente_id = pacientes_dict.get(nome)
+
+    dados = {
+        "paciente_id": paciente_id,
+        "paciente_nome": nome,
+        "data": self.entry_data.get(),
+        "tipo": self.entry_tipo.get(),
+        "observacoes": self.text_obs.get("1.0", "end").strip(),
+        "status": self.status.get()
+    }
+
+    if not nome or not paciente_id:
+        CTkMessagebox(title="Erro", message="Selecione um paciente válido", icon="cancel")
+        return
+
+    if not validar_data(dados["data"]):
+        CTkMessagebox(title="Erro", message="Data inválida", icon="cancel")
+        return
+
+    if not dados["tipo"]:
+        CTkMessagebox(title="Erro", message="Informe o tipo de atendimento", icon="cancel")
+        return
+
+    salvar_atendimento(dados)
+
+    CTkMessagebox(title="Sucesso", message="Atendimento registrado!", icon="check")
+
+    self.limpar_campos()
+
+
+def abrir_atendimento(app):
+    from cards_frame.atendimento import Atendimento
+    trocar_tela(app, Atendimento)
+
+

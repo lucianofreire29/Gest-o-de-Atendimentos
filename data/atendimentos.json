@@ -1,0 +1,11 @@
+[
+    {
+        "paciente_id": 1,
+        "paciente_nome": "luciano",
+        "data": "08/08/2026",
+        "tipo": "consulta",
+        "observacoes": "inicio de consulta",
+        "status": "Em acompanhamento",
+        "id": 1
+    }
+]

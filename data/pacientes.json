@@ -7,5 +7,14 @@
         "cpf/rg": "60613315332",
         "genero": "Masculino",
         "id": 1
+    },
+    {
+        "nome": "pedro",
+        "data_nascimento": "31/08/1998",
+        "telefone": "55555555555",
+        "email": "pedro@gmail.com",
+        "cpf/rg": "88598554612",
+        "genero": "Masculino",
+        "id": 2
     }
 ]

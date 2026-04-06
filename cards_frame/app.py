@@ -1,7 +1,7 @@
 import customtkinter as ctk
 from tkinter import messagebox
 from constantes.cores import *
-from utils.funçoes import criar_botao_menu,abrir_cadastro_paciente ,abrir_treeview,abrir_dashboard
+from utils.funçoes import criar_botao_menu,abrir_cadastro_paciente ,abrir_treeview,abrir_dashboard,abrir_atendimento
 from PIL import Image
 from cards_frame.card_form import CardForm
 from cards_frame.cadastrar_paciente import CadastrarPaciente
@@ -45,7 +45,7 @@ class App(ctk.CTk):
         criar_botao_menu(self.frame_menu,"Pacientes",lambda:abrir_treeview(self))
         criar_botao_menu(self.frame_menu,"Atendimentos")
         criar_botao_menu(self.frame_menu,"Novo Paciente",lambda:abrir_cadastro_paciente(self))
-        criar_botao_menu(self.frame_menu,"Novo Atendimento")
+        criar_botao_menu(self.frame_menu, "Novo Atendimento", lambda: abrir_atendimento(self))
 
 
         # ===== CONTEÚDO (FORM) =====
