@@ -61,7 +61,7 @@ def entry_cadastro(parent, placeholder, validar_func=None):
 
     entry = ctk.CTkEntry(
         parent,
-        border_color="black",
+        border_color=CINZA_MENU_LATERAL,
         placeholder_text=placeholder,
         width=200
     )
@@ -434,8 +434,15 @@ def salvar_edicao(paciente_id, entry_dict, treeview):
 def editar_sobre_detalhe(paciente, detalhe_frame, treeview,app):
     # Cria frame de edição sobre o detalhe_frame
     editar_frame = ctk.CTkFrame(detalhe_frame, fg_color="white")
-    editar_frame.place(relx=0.5, rely=0.5, anchor="center")  # centraliza sobre o detalhe_frame
-    editar_frame.configure(width=800, height=800)  # tamanho fixo
+
+    editar_frame.place(
+        relx=0,
+        rely=0,
+        relwidth=1,
+        relheight=1
+    )
+
+    editar_frame.lift()  # garante que fique na frente  # tamanho fixo
 
     entry_dict = {}
 
