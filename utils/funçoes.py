@@ -777,3 +777,20 @@ def abrir_atendimento(app):
     trocar_tela(app, Atendimento)
 
 
+def obter_atendimentos_por_paciente(paciente_id):
+    caminho = CAMINHO_ATENDIMENTOS
+
+    if not os.path.exists(caminho):
+        return []
+
+    try:
+        with open(caminho, "r", encoding="utf-8") as f:
+            atendimentos = json.load(f)
+    except json.JSONDecodeError:
+        return []
+
+    return [a for a in atendimentos if a["paciente_id"] == paciente_id]
+
+def abrir_historico(app):
+    from cards_frame.historico_atendimentos import HistoricoAtendimentos
+    trocar_tela(app, HistoricoAtendimentos)
