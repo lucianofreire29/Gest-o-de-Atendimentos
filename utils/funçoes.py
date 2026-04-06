@@ -5,7 +5,7 @@ import json
 import os
 from CTkMessagebox import CTkMessagebox
 from cards_frame.card_form import CardForm
-
+from tkcalendar import DateEntry
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -72,6 +72,16 @@ def entry_cadastro(parent, placeholder, validar_func=None):
 
     return entry
 
+
+def date_entry_cadastro(parent):
+    date = DateEntry(
+        parent,
+        date_pattern="dd/mm/yyyy",
+        background=AZUL_BOTÃO,
+        foreground="white",
+        borderwidth=2
+    )
+    return date
 
 
 def validar_data_entry(texto):
@@ -306,9 +316,15 @@ def editar_paciente(paciente, treeview_frame, treeview_paciente):
     label_data = ctk.CTkLabel(frame_data, text="Data de Nascimento", text_color=AZUL_FONTE_TEXTO)
     label_data.pack(anchor="w")
 
-    entry_data = ctk.CTkEntry(frame_data, border_color="black")
+    entry_data = date_entry_cadastro(frame_data)
     entry_data.pack(fill="x")
-    entry_data.insert(0, paciente[2])
+
+    from datetime import datetime
+    try:
+        data_convertida = datetime.strptime(paciente[2], "%d/%m/%Y")
+        entry_data.set_date(data_convertida)
+    except:
+        pass
 
     entry_dict["data_de_nascimento"] = entry_data
 
@@ -469,9 +485,16 @@ def editar_sobre_detalhe(paciente, detalhe_frame, treeview,app):
 
     ctk.CTkLabel(frame_data, text="Data de Nascimento", text_color=AZUL_FONTE_TEXTO).pack(anchor="w")
 
-    entry_data = ctk.CTkEntry(frame_data)
+    entry_data = date_entry_cadastro(frame_data)
     entry_data.pack(fill="x")
-    entry_data.insert(0, paciente[2])
+
+    # seta a data existente
+    from datetime import datetime
+    try:
+        data_convertida = datetime.strptime(paciente[2], "%d/%m/%Y")
+        entry_data.set_date(data_convertida)
+    except:
+        pass
 
     entry_dict["data_de_nascimento"] = entry_data
 

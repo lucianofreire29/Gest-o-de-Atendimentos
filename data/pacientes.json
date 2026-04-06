@@ -16,5 +16,14 @@
         "cpf/rg": "88598554612",
         "genero": "Masculino",
         "id": 2
+    },
+    {
+        "nome": "lulu",
+        "data_nascimento": "16/04/2026",
+        "telefone": "11111111111",
+        "email": "luciano@gmail.com",
+        "cpf/rg": "23511548752",
+        "genero": "Masculino",
+        "id": 3
     }
 ]

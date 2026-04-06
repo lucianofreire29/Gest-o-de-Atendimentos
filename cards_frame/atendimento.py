@@ -34,8 +34,8 @@ class Atendimento(ctk.CTkFrame):
         self.combo_paciente.pack(fill="x", padx=10, pady=5)
 
         # DATA
-        self.entry_data = entry_cadastro(left, "Data (DD/MM/AAAA)", validar_data_entry)
-        self.entry_data.pack(pady=5)
+        self.entry_data = date_entry_cadastro(left)
+        self.entry_data.pack(fill="x")
 
         # TIPO
         self.entry_tipo = entry_cadastro(left, "Tipo de atendimento")

@@ -1,7 +1,7 @@
 import customtkinter as ctk
 from constantes.cores import *
 from cards_frame.card_form import CardForm
-from utils.funçoes import titulo, entry_cadastro,validar_data_entry,validar_telefone,cadastrar_paciente,limpar_campos
+from utils.funçoes import titulo, entry_cadastro,validar_data_entry,validar_telefone,cadastrar_paciente,limpar_campos,date_entry_cadastro
 
 
 class CadastrarPaciente(CardForm):
@@ -33,7 +33,7 @@ class CadastrarPaciente(CardForm):
         self.data = titulo(frame_data, "Data de nascimento")
         self.data.pack(anchor="w")
 
-        self.entry_data = entry_cadastro(frame_data, "DD/MM/AAAA", validar_func=validar_data_entry)
+        self.entry_data = date_entry_cadastro(frame_data)
         self.entry_data.pack(fill="x")
 
         # CPF
