@@ -5,7 +5,7 @@ import json
 import os
 from CTkMessagebox import CTkMessagebox
 from tkcalendar import DateEntry
-
+from tkcalendar import Calendar
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -82,14 +82,18 @@ def date_entry_cadastro(parent):
         foreground="white",
         borderwidth=2
     )
+
+
+    date.bind("<FocusOut>", lambda e: "break")
+    date.bind("<Button-1>", lambda e: date.after(10, lambda: date.focus()))
+
     return date
 
 
 def validar_data_entry(texto):
 
-    if texto == "":  # permite apagar tudo
+    if texto == "": 
         return True
-    # permite apenas dígitos ou '/'
     return all(c.isdigit() or c == "/" for c in texto)
 
 
@@ -325,13 +329,13 @@ def editar_paciente(paciente, treeview_frame, treeview_paciente):
     label_data = ctk.CTkLabel(frame_data, text="Data de Nascimento", text_color=AZUL_FONTE_TEXTO)
     label_data.pack(anchor="w")
 
-    entry_data = date_entry_cadastro(frame_data)
-    entry_data.pack(fill="x")
+    frame_data_picker, entry_data = criar_datepicker(frame_data)
+    frame_data_picker.pack(fill="x")
 
     from datetime import datetime
     try:
         data_convertida = datetime.strptime(paciente[2], "%d/%m/%Y")
-        entry_data.set_date(data_convertida)
+        entry_data.insert(0, data_convertida.strftime("%d/%m/%Y"))
     except:
         pass
 
@@ -494,14 +498,14 @@ def editar_sobre_detalhe(paciente, detalhe_frame, treeview,app):
 
     ctk.CTkLabel(frame_data, text="Data de Nascimento", text_color=AZUL_FONTE_TEXTO).pack(anchor="w")
 
-    entry_data = date_entry_cadastro(frame_data)
-    entry_data.pack(fill="x")
+    frame_data_picker, entry_data = criar_datepicker(frame_data)
+    frame_data_picker.pack(fill="x")
 
     # seta a data existente
     from datetime import datetime
     try:
         data_convertida = datetime.strptime(paciente[2], "%d/%m/%Y")
-        entry_data.set_date(data_convertida)
+        entry_data.insert(0, data_convertida.strftime("%d/%m/%Y"))
     except:
         pass
 
@@ -982,3 +986,47 @@ def criar_grafico_barras(frame, hoje, ontem):
     canvas = FigureCanvasTkAgg(fig, master=frame)
     canvas.draw()
     canvas.get_tk_widget().pack(fill="both", expand=True)
+
+
+
+def criar_datepicker(parent):
+    frame = ctk.CTkFrame(parent, fg_color="transparent")
+
+    # Entry (onde aparece a data)
+    entry = ctk.CTkEntry(frame, width=140)
+    entry.pack(side="left", fill="x", expand=True)
+
+    def abrir_calendario():
+        top = ctk.CTkToplevel(frame)
+        top.geometry("300x300")
+        top.title("Selecionar Data")
+        top.grab_set()  # 🔥 trava foco (igual sistema profissional)
+
+        cal = Calendar(
+            top,
+            date_pattern="dd/mm/yyyy",
+            selectmode="day"
+        )
+        cal.pack(expand=True, fill="both", padx=10, pady=10)
+
+        def selecionar_data():
+            entry.delete(0, "end")
+            entry.insert(0, cal.get_date())
+            top.destroy()
+
+        ctk.CTkButton(
+            top,
+            text="Selecionar",
+            command=selecionar_data
+        ).pack(pady=10)
+
+    # Botão calendário
+    btn = ctk.CTkButton(
+        frame,
+        text="📅",
+        width=40,
+        command=abrir_calendario
+    )
+    btn.pack(side="left", padx=5)
+
+    return frame, entry
