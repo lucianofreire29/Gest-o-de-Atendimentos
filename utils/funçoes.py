@@ -4,7 +4,6 @@ from datetime import datetime
 import json
 import os
 from CTkMessagebox import CTkMessagebox
-from cards_frame.card_form import CardForm
 from tkcalendar import DateEntry
 
 
@@ -37,6 +36,8 @@ def criar_botao_menu(parent, texto, comando=None):
 def abrir_dashboard(app):
     from cards_frame.card_form import CardForm
     trocar_tela(app, CardForm)
+
+
 
 def abrir_cadastro_paciente(app):
     from cards_frame.cadastrar_paciente import CadastrarPaciente
@@ -199,6 +200,12 @@ def cadastrar_paciente(self):
         icon="check",
         option_1="OK"
     )
+
+    # atualizar dashboard se estiver aberto
+    if hasattr(self.master.master, "tela_atual"):
+        tela = self.master.master.tela_atual
+        if hasattr(tela, "atualizar_dashboard"):
+            tela.atualizar_dashboard()
 
     # limpa campos
     limpar_campos(self)
@@ -675,11 +682,18 @@ def renderizar_detalhe(paciente, treeview_frame, treeview, app):
 
 
 def trocar_tela(app, TelaClasse):
+    # limpa tela atual
     for widget in app.frame_form.winfo_children():
         widget.destroy()
 
-    tela = TelaClasse(app.frame_form, app)
-    tela.pack(fill="both", expand=True, padx=20, pady=20)
+    # cria nova tela
+    nova_tela = TelaClasse(app.frame_form, app)
+
+    # salva referência correta
+    app.tela_atual = nova_tela
+
+    # renderiza
+    nova_tela.pack(fill="both", expand=True)
 
 
 
@@ -801,6 +815,15 @@ def cadastrar_atendimento(self):
 
     CTkMessagebox(title="Sucesso", message="Atendimento registrado!", icon="check")
 
+
+    # atualizar dashboard se estiver aberto
+    if hasattr(self.master.master, "tela_atual"):
+        tela = self.master.master.tela_atual
+        if hasattr(tela, "atualizar_dashboard"):
+            tela.atualizar_dashboard()
+
+
+
     self.limpar_campos()
 
 
@@ -838,3 +861,124 @@ def fechar_app(app):
     if resposta:
         app.destroy()
 
+
+
+
+import matplotlib.pyplot as plt
+from datetime import datetime
+
+def obter_estatisticas_dashboard():
+    import json
+    import os
+    from datetime import datetime, timedelta
+
+    
+    caminho_pacientes = CAMINHO_PACIENTES
+    caminho_atendimentos = CAMINHO_ATENDIMENTOS
+
+    
+    if os.path.exists(caminho_pacientes):
+        with open(caminho_pacientes, "r", encoding="utf-8") as f:
+            pacientes = json.load(f)
+    else:
+        pacientes = []
+
+    
+    if os.path.exists(caminho_atendimentos):
+        with open(caminho_atendimentos, "r", encoding="utf-8") as f:
+            atendimentos = json.load(f)
+    else:
+        atendimentos = []
+
+    
+    total_pacientes = len(pacientes)
+    total_atendimentos = len(atendimentos)
+
+    genero_dict = {"Masculino": 0, "Feminino": 0, "Outro": 0}
+
+    for p in pacientes:
+        genero = p.get("genero", "Outro")
+        if genero in genero_dict:
+            genero_dict[genero] += 1
+
+    
+
+    hoje = datetime.now().strftime("%d/%m/%Y")
+    ontem = (datetime.now() - timedelta(days=1)).strftime("%d/%m/%Y")
+
+    atendimentos_hoje = 0
+    atendimentos_ontem = 0
+
+    for a in atendimentos:
+        if a["data"] == hoje:
+            atendimentos_hoje += 1
+        elif a["data"] == ontem:
+            atendimentos_ontem += 1
+
+    variacao = 0
+    if atendimentos_ontem > 0:
+        variacao = ((atendimentos_hoje - atendimentos_ontem) / atendimentos_ontem) * 100
+
+    
+    return {
+        "total_pacientes": total_pacientes,
+        "total_atendimentos": total_atendimentos,
+        "atendimentos_hoje": atendimentos_hoje,
+        "atendimentos_ontem": atendimentos_ontem,
+        "variacao": variacao,
+        "genero": genero_dict
+    }
+
+
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+
+def criar_grafico_pizza(frame, dados):
+    import matplotlib.pyplot as plt
+    from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+
+    labels = list(dados.keys())
+    valores = list(dados.values())
+
+    fig, ax = plt.subplots(figsize=(4,4))
+
+    wedges, texts, autotexts = ax.pie(
+        valores,
+        autopct='%1.1f%%',
+        startangle=90
+    )
+
+    ax.legend(
+        wedges,
+        labels,
+        title="Gênero",
+        loc="center left",
+        bbox_to_anchor=(1, 0.5)
+    )
+
+    ax.set_title("Pacientes por Gênero")
+
+    canvas = FigureCanvasTkAgg(fig, master=frame)
+    canvas.draw()
+    canvas.get_tk_widget().pack(fill="both", expand=True)
+
+
+def criar_grafico_barras(frame, hoje, ontem):
+    import matplotlib.pyplot as plt
+    from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+
+    labels = ["Atendimentos"]
+
+    fig, ax = plt.subplots(figsize=(4,4))
+
+    ax.bar([0], [hoje], width=0.4, label="Hoje")
+    ax.bar([0.4], [ontem], width=0.4, label="Ontem")
+
+    ax.set_xticks([0.2])
+    ax.set_xticklabels(labels)
+
+    ax.legend()
+    ax.set_title("Hoje vs Ontem")
+
+    canvas = FigureCanvasTkAgg(fig, master=frame)
+    canvas.draw()
+    canvas.get_tk_widget().pack(fill="both", expand=True)

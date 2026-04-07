@@ -39,8 +39,11 @@ class Atendimento(ctk.CTkFrame):
             self.combo_paciente.set(paciente[1])  # nome do paciente
 
         # OPCIONAL: travar o campo
-        self.combo_paciente.configure(state="disabled")
-        del self.app.paciente_selecionado
+        if hasattr(self.app, "paciente_selecionado"):
+            paciente = self.app.paciente_selecionado
+            self.combo_paciente.set(paciente[1])
+            self.combo_paciente.configure(state="disabled")
+            del self.app.paciente_selecionado
 
 
         # DATA

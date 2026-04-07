@@ -25,5 +25,14 @@
         "cpf/rg": "23511548752",
         "genero": "Masculino",
         "id": 3
+    },
+    {
+        "nome": "fernando",
+        "data_nascimento": "07/04/2026",
+        "telefone": "88888888888",
+        "email": "fernando@gmail.com",
+        "cpf/rg": "25665441578",
+        "genero": "Masculino",
+        "id": 4
     }
 ]

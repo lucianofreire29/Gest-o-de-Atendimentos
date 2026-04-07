@@ -25,5 +25,14 @@
         "observacoes": "iniciando consulta de oftamologia",
         "status": "Em acompanhamento",
         "id": 3
+    },
+    {
+        "paciente_id": 1,
+        "paciente_nome": "luciano",
+        "data": "06/04/2026",
+        "tipo": "consulta",
+        "observacoes": "atendimento realizado",
+        "status": "Realizado",
+        "id": 4
     }
 ]
