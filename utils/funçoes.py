@@ -276,8 +276,10 @@ def excluir_paciente(paciente, app):
 def editar_paciente(paciente, treeview_frame):
     CTkMessagebox(title="Editar", message=f"Editar paciente {paciente[1]}", icon="check", option_1="OK")
 
-def registrar_atendimento(paciente):
-    CTkMessagebox(title="Atendimento", message=f"Registrar atendimento para {paciente[1]}", icon="check", option_1="OK")
+def registrar_atendimento(paciente,app):
+    app.paciente_selecionado = paciente
+    abrir_atendimento(app)
+    
 
 
 
@@ -668,7 +670,7 @@ def renderizar_detalhe(paciente, treeview_frame, treeview, app):
     ctk.CTkButton(
         detalhe_frame,
         text="Registrar Atendimento",
-        command=lambda: registrar_atendimento(paciente)
+        command=lambda: registrar_atendimento(paciente,app)
     ).pack(pady=5)
 
 

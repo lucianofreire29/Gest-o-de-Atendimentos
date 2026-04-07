@@ -33,6 +33,16 @@ class Atendimento(ctk.CTkFrame):
         self.combo_paciente = ctk.CTkComboBox(left, values=list(obter_pacientes_dict().keys()))
         self.combo_paciente.pack(fill="x", padx=10, pady=5)
 
+            # 🔥 PREENCHER PACIENTE AUTOMATICAMENTE
+        if hasattr(self.app, "paciente_selecionado"):
+            paciente = self.app.paciente_selecionado
+            self.combo_paciente.set(paciente[1])  # nome do paciente
+
+        # OPCIONAL: travar o campo
+        self.combo_paciente.configure(state="disabled")
+        del self.app.paciente_selecionado
+
+
         # DATA
         self.entry_data = date_entry_cadastro(left)
         self.entry_data.pack(fill="x")
