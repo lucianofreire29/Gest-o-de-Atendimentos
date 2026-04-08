@@ -6,6 +6,8 @@ from PIL import Image
 from cards_frame.card_form import CardForm
 from cards_frame.cadastrar_paciente import CadastrarPaciente
 import os
+from cards_frame.login import Login
+
 
 class App(ctk.CTk):
     def __init__(self):
@@ -19,7 +21,7 @@ class App(ctk.CTk):
         # ===== TOPO =====
         self.frame_topo = ctk.CTkFrame(self, fg_color=AZUL_MENU, height=40,corner_radius=0)
         self.frame_topo.pack(fill="x", side="top")
-
+        self.frame_topo.pack_forget()
         # ===== CONTAINER PRINCIPAL =====
         self.frame_main = ctk.CTkFrame(self)
         self.frame_main.pack(fill="both", expand=True)
@@ -27,6 +29,7 @@ class App(ctk.CTk):
         # ===== MENU LATERAL =====
         self.frame_menu = ctk.CTkFrame(self.frame_main, fg_color=CINZA_MENU_LATERAL, width=200,corner_radius=0)
         self.frame_menu.pack(side="left", fill="y")
+        self.frame_menu.pack_forget()
 
         BASE_DIR = os.path.dirname(os.path.dirname(__file__))
         caminho_img = os.path.join(BASE_DIR, "assets", "caresync.png")
@@ -52,6 +55,17 @@ class App(ctk.CTk):
         self.frame_form = ctk.CTkFrame(self.frame_main,fg_color="white")
         self.frame_form.pack(side="right", fill="both", expand=True)
 
-        self.tela_atual = CardForm(self.frame_form, self)
-        self.tela_atual.pack(padx=20, pady=20, fill="both", expand=True)
+        self.tela_atual = Login(self.frame_form, self)
+        self.tela_atual.pack(fill="both", expand=True)
 
+    def mostrar_menu(self):
+        # remove tudo da tela principal
+        self.frame_topo.pack_forget()
+        self.frame_main.pack_forget()
+
+        # recria na ordem correta
+        self.frame_topo.pack(fill="x", side="top")
+        self.frame_main.pack(fill="both", expand=True)
+
+        # agora sim o menu dentro do main
+        self.frame_menu.pack(side="left", fill="y")
