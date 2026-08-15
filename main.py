@@ -1,9 +1,13 @@
-import tkinter as tk
-from cards_frame.app import App
 import customtkinter as ctk
 
-ctk.set_widget_scaling(1.20)
+from cards_frame.app import App
 
-if __name__ == "__main__":
+
+def main():
+    ctk.set_widget_scaling(1.20)
     app = App()
     app.mainloop()
+
+
+if __name__ == "__main__":
+    main()

@@ -1,6 +1,6 @@
 import customtkinter as ctk
 from constantes.cores import *
-from utils.funçoes import *
+from utils.funcoes import *
 
 class HistoricoAtendimentos(ctk.CTkFrame):
     def __init__(self, parent, app):

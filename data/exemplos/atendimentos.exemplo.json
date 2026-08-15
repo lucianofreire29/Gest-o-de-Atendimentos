@@ -1,0 +1,11 @@
+[
+    {
+        "paciente_id": 1,
+        "paciente_nome": "Paciente Exemplo",
+        "data": "01/01/2026",
+        "tipo": "consulta",
+        "observacoes": "Registro exclusivamente demonstrativo",
+        "status": "Realizado",
+        "id": 1
+    }
+]

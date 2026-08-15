@@ -1,0 +1,11 @@
+[
+    {
+        "nome": "Paciente Exemplo",
+        "data_nascimento": "01/01/1990",
+        "telefone": "00000000000",
+        "email": "paciente@example.com",
+        "cpf/rg": "00000000000",
+        "genero": "Outro",
+        "id": 1
+    }
+]

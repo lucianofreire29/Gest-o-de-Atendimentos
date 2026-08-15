@@ -47,7 +47,7 @@ class CardForm(ctk.CTkFrame):
 
     # ===== DASHBOARD =====
     def carregar_dashboard(self):
-        from utils.funçoes import (
+        from utils.funcoes import (
             obter_estatisticas_dashboard,
             criar_grafico_pizza,
             criar_grafico_barras
