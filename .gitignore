@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.log
+tempCodeRunnerFile.py
+
+# Dados gerados pela aplicação
+data/*.json
+!data/exemplos/
+!data/exemplos/*.json

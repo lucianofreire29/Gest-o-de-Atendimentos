@@ -1,0 +1,6 @@
+customtkinter>=5.2,<6
+CTkMessagebox>=2.7,<3
+Pillow>=10,<13
+tkcalendar>=1.6,<2
+matplotlib>=3.8,<4
+python-dotenv>=1.0,<2

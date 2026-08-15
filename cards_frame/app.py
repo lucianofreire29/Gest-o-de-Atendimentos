@@ -1,7 +1,7 @@
 import customtkinter as ctk
 from tkinter import messagebox
 from constantes.cores import *
-from utils.funçoes import criar_botao_menu,abrir_cadastro_paciente ,abrir_treeview,abrir_dashboard,abrir_atendimento,abrir_historico,fechar_app
+from utils.funcoes import criar_botao_menu,abrir_cadastro_paciente ,abrir_treeview,abrir_dashboard,abrir_atendimento,abrir_historico,fechar_app
 from PIL import Image
 from cards_frame.card_form import CardForm
 from cards_frame.cadastrar_paciente import CadastrarPaciente

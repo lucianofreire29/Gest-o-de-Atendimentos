@@ -420,7 +420,7 @@ def salvar_edicao(paciente_id, entry_dict, treeview):
     genero = entry_dict["genero"].get()
 
     # validações
-    from utils.funçoes import validar_data, validar_telefone
+    from utils.funcoes import validar_data, validar_telefone
     if not nome:
         CTkMessagebox(title="Erro", message="Informe o nome do paciente", icon="cancel", option_1="OK")
         return
@@ -453,7 +453,7 @@ def salvar_edicao(paciente_id, entry_dict, treeview):
         json.dump(pacientes, f, indent=4)
 
     # atualiza Treeview
-    from utils.funçoes import carregar_pacientes
+    from utils.funcoes import carregar_pacientes
     carregar_pacientes(treeview)
 
     CTkMessagebox(title="Sucesso", message="Paciente atualizado!", icon="check", option_1="OK")
@@ -587,7 +587,7 @@ def salvar_edicao_sobre(paciente_id, entry_dict, treeview, editar_frame,app):
     cpf_rg = entry_dict["cpf/rg"].get()
     genero = entry_dict["genero"].get()
 
-    from utils.funçoes import validar_data, validar_telefone, carregar_pacientes, renderizar_detalhe
+    from utils.funcoes import validar_data, validar_telefone, carregar_pacientes, renderizar_detalhe
 
     # validações
     if not nome:

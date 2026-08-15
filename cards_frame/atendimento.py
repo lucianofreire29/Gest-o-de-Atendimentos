@@ -1,6 +1,6 @@
 import customtkinter as ctk
 from constantes.cores import *
-from utils.funçoes import *
+from utils.funcoes import *
 
 class Atendimento(ctk.CTkFrame):
     def __init__(self, parent, app):
@@ -96,4 +96,5 @@ class Atendimento(ctk.CTkFrame):
 def abrir_atendimento(app):
     from cards_frame.atendimento import Atendimento
     trocar_tela(app, Atendimento)
+
 

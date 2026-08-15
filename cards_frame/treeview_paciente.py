@@ -5,7 +5,7 @@ from cards_frame.card_form import CardForm
 from tkinter import ttk
 import json
 import os
-from utils.funçoes import carregar_pacientes, abrir_detalhes_paciente,pesquisar_pacientes
+from utils.funcoes import carregar_pacientes, abrir_detalhes_paciente,pesquisar_pacientes
 
 
 class TreeviewPaciente(ctk.CTkFrame):
